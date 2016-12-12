@@ -42,12 +42,17 @@ def icloud_photo_sync(username, password, dest_dir=os.getcwd(), skip_exists=True
   # purge
   if purge:
     for existing_file in os.listdir(dest_dir):
+      if existing_file[0:1] == ".":
+        continue
       existing_file_path = os.path.join(dest_dir, existing_file)
       logging.debug("considering purge of %s" % existing_file_path)
       if os.path.isfile(existing_file_path) and len(filter(lambda photo: photo.filename == existing_file, stack)) == 0:
         logging.info("purging %s" % existing_file_path)
-        os.remove(existing_file_path)
-        num_purge = num_purge + 1
+        try:
+          os.remove(existing_file_path)
+          num_purge = num_purge + 1
+        except:
+          logging.error("failed to purge %s" % existing_file_path)
 
 
   # download
