@@ -27,6 +27,10 @@ def icloud_photo_sync(username, password, dest_dir=os.getcwd(), skip_exists=True
   logging.info("logging in...")
   api = PyiCloudService(username, password)
 
+  logging.info("calling update...")
+  api.photos.albums['All Photos']
+  api.photos.update()
+
   logging.info("getting photos...")
   stack = []
   for photo in api.photos.albums['All Photos']:
