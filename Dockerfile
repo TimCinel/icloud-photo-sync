@@ -1,6 +1,8 @@
-FROM python:2.7-slim
+FROM python:2.7
 
-RUN pip install pyicloud hachoir-parser hachoir-metadata hachoir-core pyyaml
+COPY src/requirements.txt /opt/requirements.txt
+
+RUN pip install -r /opt/requirements.txt
 
 COPY src/icloud-photo-sync.py /opt/
 
